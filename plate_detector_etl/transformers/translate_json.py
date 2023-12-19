@@ -1,0 +1,42 @@
+import pandas as pd
+import datetime
+from typing import Dict, List
+
+if 'transformer' not in globals():
+    from mage_ai.data_preparation.decorators import transformer
+
+
+@transformer
+def transform(messages: List[Dict], *args, **kwargs):
+    
+    top_n = 3
+    for i, message in enumerate(messages):
+
+        candidates = message [ "results"][0]["candidates"][:top_n]
+        # Create a dictionary for DataFrame
+        flat_result = {
+        "epoch_time": datetime.datetime.fromtimestamp (message["epoch"]),
+        "img_width": message["img_width"],
+        "img_height": message["img_height"],
+        "regions_of_interest": str(message["regions_of_interest"]),
+        "processing_time_ms": message["processing_time_ms"],
+        "file": message["file"],
+        "plate": message [ "results"][0]["plate"],
+        "confidence": message["results"][0]["confidence"],
+        "coordinates": str(message["results"][0]["coordinates"]),
+        }
+
+    # Add columns for each candidate
+    for j, candidate in enumerate(candidates):
+
+        flat_result[f"plate_{j}"] = candidate ["plate"]
+        flat_result[f" confidence_plate_{j}"] = candidate ["confidence"]
+
+    for k in range(len(candidates), 3):
+
+        flat_result[f"plate_{k}"] = ''
+        flat_result[f" confidence_plate_{k}"] = 0.00
+
+    messages[i] = flat_result
+
+    return messages

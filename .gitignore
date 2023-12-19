@@ -1,0 +1,4 @@
+bq_key.json
+*.log
+**/.cache/**
+*.db*
