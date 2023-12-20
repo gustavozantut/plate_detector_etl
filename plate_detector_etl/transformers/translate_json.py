@@ -19,7 +19,7 @@ def transform(messages: List[Dict], *args, **kwargs):
 
         # Create a dictionary for DataFrame
         flat_result = {
-            "epoch_time": str(datetime.fromtimestamp(message["epoch_time"] / 1000.0).strftime('%Y-%m-%d %H:%M:%S')),
+            "epoch_time": datetime.fromtimestamp(message["epoch_time"] / 1000.0),
             "img_width": message["img_width"],
             "img_height": message["img_height"],
             "regions_of_interest": str(message["regions_of_interest"]),
