@@ -41,6 +41,6 @@ def transform(messages: List[Dict], *args, **kwargs):
             flat_result[f"plate_{k}"] = ''
             flat_result[f" confidence_plate_{k}"] = 0.00
 
-        messages[i] = flat_result
-
+        data.append(flat_result)
+        
     return messages

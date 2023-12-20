@@ -11,8 +11,6 @@ def transform(messages: List[Dict], *args, **kwargs):
     
     top_n = 3
 
-    data = []
-
     for i, message in enumerate(messages):
 
         candidates = message["results"][0]["candidates"][:top_n]

@@ -41,6 +41,7 @@ def transform(messages: List[Dict], *args, **kwargs):
             flat_result[f"plate_{k}"] = ''
             flat_result[f" confidence_plate_{k}"] = 0.00
 
-        messages[i] = flat_result
-
-    return messages
+        data.append(flat_result)
+        df['epoch_time'] = pd.to_datetime(df['epoch_time'])
+        
+    return pd.DataFrame(data)

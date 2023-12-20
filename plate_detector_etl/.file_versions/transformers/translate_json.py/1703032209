@@ -26,7 +26,7 @@ def transform(messages: List[Dict], *args, **kwargs):
             "processing_time_ms": message["processing_time_ms"],
             "file": message["file"],
             "plate": message [ "results"][0]["plate"],
-            "confidence": message["results"][0]["confidence"],
+            "confidence": message["results"][0]["confidence"][0],
             "coordinates": str(message["results"][0]["coordinates"]),
         }
 
@@ -41,6 +41,7 @@ def transform(messages: List[Dict], *args, **kwargs):
             flat_result[f"plate_{k}"] = ''
             flat_result[f" confidence_plate_{k}"] = 0.00
 
-        messages[i] = flat_result
-
-    return messages
+        data.append(flat_result)
+        df['epoch_time'] = pd.to_datetime(df['epoch_time'])
+        
+    return pd.DataFrame(data)

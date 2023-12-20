@@ -69,7 +69,7 @@ settings:
 spark_config: {}
 tags: []
 type: streaming
-updated_at: '2023-12-20 00:39:21'
+updated_at: '2023-12-19 23:40:28'
 uuid: kafka_to_bq
 variables_dir: /home/src/mage_data/plate_detector_etl
 widgets: []
